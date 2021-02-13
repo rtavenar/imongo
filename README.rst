@@ -1,6 +1,8 @@
 imongo
 ======
 
+**This repository is a non-official fork of the IMongo project.**
+
 A MongoDB kernel for Jupyter. Mainly for educational purposes.
 
 This kernel wraps the Mongo shell using pexpect_ and was inspired by
@@ -39,14 +41,16 @@ For other platforms, please refer to the MongoDB documentation_
 .. _Homebrew: http://brew.sh/
 .. _documentation: https://docs.mongodb.com/manual/installation/
 
-Install Jupyter and IMongo Kernel using ``pip``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Install Jupyter and IMongo Kernel from this github repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To install Jupyter, IMongo and all other dependencies, use ``pip install``:
+To install Jupyter, this IMongo version, and all other dependencies, use the
+following commands:
 
 .. code:: bash
-
-    $ pip install imongo-kernel
+    $ git clone https://github.com/rtavenar/imongo
+    $ cd imongo
+    $ python setup.py install
 
 Install Jupyter and IMongo Kernel using ``conda``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -102,7 +106,7 @@ Uninstall:
 
 .. code:: bash
 
-    # Remove library: 
+    # Remove library:
     $ pip uninstall imongo
     # Remove kernel spec
     $ jupyter kernelspec remove imongo

@@ -267,7 +267,9 @@ class MongoKernel(Kernel):
             self._start_mongo()
         finally:
             if error:
-                error_msg = {'name': 'stderr', 'text': error + '\nRestarting mongo shell...'}
+                error_msg = {'name': 'stderr',
+                             'text': error + '\nRestarting mongo shell...',
+                             'metadata': {}}
                 self.send_response(self.iopub_socket, 'stream', error_msg)
 
         if interrupted:
@@ -277,13 +279,15 @@ class MongoKernel(Kernel):
             json_data = self._parse_shell_output(output)
             poutput = self._pretty_output(json_data)
             html_str, js_str = poutput if poutput else (None, None)
-            html_msg = {'data': {'text/html': html_str}}
-            js_msg = {'data': {'application/javascript': js_str}}
+            html_msg = {'data': {'text/html': html_str},
+                        'metadata': {}}
+            js_msg = {'data': {'application/javascript': js_str},
+                      'metadata': {}}
             self.send_response(self.iopub_socket, 'display_data', html_msg)
             self.send_response(self.iopub_socket, 'display_data', js_msg)
 
             result = {'data': {'text/plain': output},
-                      'execution_count': self.execution_count}
+                      'execution_count': self.execution_count, 'metadata': {}}
             logger.debug(result)
             self.send_response(self.iopub_socket, 'execute_result', result)
 
