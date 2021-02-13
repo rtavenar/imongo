@@ -48,6 +48,7 @@ To install Jupyter, this IMongo version, and all other dependencies, use the
 following commands:
 
 .. code:: bash
+
     $ git clone https://github.com/rtavenar/imongo
     $ cd imongo
     $ python setup.py install
