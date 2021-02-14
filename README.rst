@@ -3,6 +3,12 @@ imongo
 
 **This repository is a non-official fork of the IMongo project.**
 
+It differs from the official version in the following ways:
+
+* it works with Jupyter Books;
+* it does not prettify the outputs;
+* the install method described below is supposed to work properly.
+
 A MongoDB kernel for Jupyter. Mainly for educational purposes.
 
 This kernel wraps the Mongo shell using pexpect_ and was inspired by
@@ -49,7 +55,7 @@ use `pip install`:
 
 .. code:: bash
 
-    $ pip install git+git://github.com/rtavenar/imongo.git#egg=imongo
+    $ pip install git+git://github.com/rtavenar/imongo.git#egg=imongo-kernel
 
 The following installation instructions rather install the official IMongo
 versions.

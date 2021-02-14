@@ -276,15 +276,15 @@ class MongoKernel(Kernel):
             return {'status': 'abort', 'execution_count': self.execution_count}
 
         if not silent and output:
-            json_data = self._parse_shell_output(output)
-            poutput = self._pretty_output(json_data)
-            html_str, js_str = poutput if poutput else (None, None)
-            html_msg = {'data': {'text/html': html_str},
-                        'metadata': {}}
-            js_msg = {'data': {'application/javascript': js_str},
-                      'metadata': {}}
-            self.send_response(self.iopub_socket, 'display_data', html_msg)
-            self.send_response(self.iopub_socket, 'display_data', js_msg)
+            # json_data = self._parse_shell_output(output)
+            # poutput = self._pretty_output(json_data)
+            # html_str, js_str = poutput if poutput else (None, None)
+            # html_msg = {'data': {'text/html': html_str},
+            #             'metadata': {}}
+            # js_msg = {'data': {'application/javascript': js_str},
+            #           'metadata': {}}
+            # self.send_response(self.iopub_socket, 'display_data', html_msg)
+            # self.send_response(self.iopub_socket, 'display_data', js_msg)
 
             result = {'data': {'text/plain': output},
                       'execution_count': self.execution_count, 'metadata': {}}
