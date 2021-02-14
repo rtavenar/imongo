@@ -44,14 +44,15 @@ For other platforms, please refer to the MongoDB documentation_
 Install Jupyter and IMongo Kernel from this github repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To install Jupyter, this IMongo version, and all other dependencies, use the
-following commands:
+To install Jupyter, IMongo and all other dependencies **from this repository**,
+use `pip install`:
 
 .. code:: bash
 
-    $ git clone https://github.com/rtavenar/imongo
-    $ cd imongo
-    $ python setup.py install
+    $ pip install git+git://github.com/rtavenar/imongo.git#egg=imongo
+
+The following installation instructions rather install the official IMongo
+versions.
 
 Install Jupyter and IMongo Kernel using ``conda``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
