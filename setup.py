@@ -11,6 +11,7 @@ if sys.version_info < (3, 6):
     sys.exit('IMongo supports Python 3.6+ only')
 
 def post_install(install):
+    print('install attributes: {}".format(install.__dict__))
     if not hasattr(install, "user"):
         install.user = False
     if not hasattr(install, "prefix"):
