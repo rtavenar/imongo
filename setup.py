@@ -51,6 +51,7 @@ class CommandMixin(object):
 
 
 class Installer(CommandMixin, install):
+    user_options = install.user_options + CommandMixin.user_options
     def run(self):
         # Regular install
         install.run(self)
