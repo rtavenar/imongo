@@ -58,7 +58,7 @@ class EggInfoCommand(CommandMixin, egg_info):
         egg_info.run(self)
 
         # Post install
-        self._post_install()
+        # self._post_install()
 
 
 
