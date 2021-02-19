@@ -60,6 +60,7 @@ class Installer(CommandMixin, install):
         self._post_install()
 
 class DevelopCommand(CommandMixin, develop):
+    user_options = develop.user_options + CommandMixin.user_options
     def run(self):
         # Regular install
         develop.run(self)
@@ -69,6 +70,7 @@ class DevelopCommand(CommandMixin, develop):
 
 
 class EggInfoCommand(CommandMixin, egg_info):
+    user_options = egg_info.user_options + CommandMixin.user_options
     def run(self):
         # Regular install
         egg_info.run(self)
