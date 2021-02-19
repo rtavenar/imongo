@@ -10,53 +10,69 @@ from setuptools.command.egg_info import egg_info
 if sys.version_info < (3, 6):
     sys.exit('IMongo supports Python 3.6+ only')
 
-def post_install(install):
-    if not hasattr(install, "user"):
-        install.user = False
-    if not hasattr(install, "prefix"):
-        install.prefix = None
+class CommandMixin(object):
+    user_options = [
+        ('nokernelinstall', None,
+         'if this flag is passed the kernel is not added to the list of ' +
+         'jupyter kernels at the end of install')
+    ]
 
-    print('Installing Jupyter kernelspec')
-    from jupyter_client.kernelspec import KernelSpecManager
-    from IPython.utils.tempdir import TemporaryDirectory
-    kernel_json = {
-        "argv": ["python", "-m", "imongo", "-f", "{connection_file}"],
-        "codemirror_mode": "shell",
-        "display_name": "IMongo"
-    }
-    with TemporaryDirectory() as td:
-        os.chmod(td, 0o755)
-        with open(os.path.join(td, 'kernel.json'), 'w') as f:
-            json.dump(kernel_json, f, sort_keys=True)
-        ksm = KernelSpecManager()
-        ksm.install_kernel_spec(td, 'imongo', replace=True,
-                                user=install.user, prefix=install.prefix)
+    def initialize_options(self):
+        super().initialize_options()
+        self.nokernelinstall = None
+
+    def finalize_options(self):
+        super().finalize_options()
+
+    def _post_install(self):
+        if self.nokernelinstall:
+            return
+        if not hasattr(self, "user"):
+            self.user = False
+        if not hasattr(self, "prefix"):
+            self.prefix = None
+
+        print('Installing Jupyter kernelspec')
+        from jupyter_client.kernelspec import KernelSpecManager
+        from IPython.utils.tempdir import TemporaryDirectory
+        kernel_json = {
+            "argv": ["python", "-m", "imongo", "-f", "{connection_file}"],
+            "codemirror_mode": "shell",
+            "display_name": "IMongo"
+        }
+        with TemporaryDirectory() as td:
+            os.chmod(td, 0o755)
+            with open(os.path.join(td, 'kernel.json'), 'w') as f:
+                json.dump(kernel_json, f, sort_keys=True)
+            ksm = KernelSpecManager()
+            ksm.install_kernel_spec(td, 'imongo', replace=True,
+                                    user=self.user, prefix=self.prefix)
 
 
-class Installer(install):
+class Installer(CommandMixin, install):
     def run(self):
         # Regular install
         install.run(self)
 
         # Post install
-        post_install(self)
+        self._post_install()
 
-class DevelopCommand(develop):
+class DevelopCommand(CommandMixin, develop):
     def run(self):
         # Regular install
         develop.run(self)
 
         # Post install
-        post_install(self)
+        self._post_install()
 
 
-class EggInfoCommand(egg_info):
+class EggInfoCommand(CommandMixin, egg_info):
     def run(self):
         # Regular install
         egg_info.run(self)
 
         # Post install
-        post_install(self)
+        self._post_install()
 
 
 
