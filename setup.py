@@ -25,6 +25,7 @@ class CommandMixin(object):
         super().finalize_options()
 
     def _post_install(self):
+        print("install attributes: {}".format(install.__dict__))
         if self.nokernelinstall:
             return
         if not hasattr(self, "user"):
