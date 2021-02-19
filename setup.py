@@ -11,23 +11,8 @@ if sys.version_info < (3, 6):
     sys.exit('IMongo supports Python 3.6+ only')
 
 class CommandMixin(object):
-    user_options = [
-        ('nokernelinstall', None,
-         'if this flag is passed the kernel is not added to the list of ' +
-         'jupyter kernels at the end of install')
-    ]
-
-    def initialize_options(self):
-        super().initialize_options()
-        self.nokernelinstall = None
-
-    def finalize_options(self):
-        super().finalize_options()
-
     def _post_install(self):
         print("install attributes: {}".format(install.__dict__))
-        if self.nokernelinstall:
-            return
         if not hasattr(self, "user"):
             self.user = False
         if not hasattr(self, "prefix"):
@@ -51,7 +36,6 @@ class CommandMixin(object):
 
 
 class Installer(CommandMixin, install):
-    user_options = install.user_options + CommandMixin.user_options
     def run(self):
         # Regular install
         install.run(self)
@@ -60,7 +44,6 @@ class Installer(CommandMixin, install):
         self._post_install()
 
 class DevelopCommand(CommandMixin, develop):
-    user_options = develop.user_options + CommandMixin.user_options
     def run(self):
         # Regular install
         develop.run(self)
@@ -70,7 +53,6 @@ class DevelopCommand(CommandMixin, develop):
 
 
 class EggInfoCommand(CommandMixin, egg_info):
-    user_options = egg_info.user_options + CommandMixin.user_options
     def run(self):
         # Regular install
         egg_info.run(self)
