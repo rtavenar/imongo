@@ -12,7 +12,7 @@ if sys.version_info < (3, 6):
 
 class CommandMixin(object):
     def _post_install(self):
-        print("install attributes: {}".format(install.__dict__))
+        print("install attributes: {}".format(self.__dict__))
         if not hasattr(self, "user"):
             self.user = False
         if not hasattr(self, "prefix"):
